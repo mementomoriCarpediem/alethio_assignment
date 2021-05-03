@@ -5,7 +5,8 @@ import Service from './Pages/Service/Service';
 import MyPage from './Pages/MyPage/MyPage';
 import MyPageDetail from './Pages/MyPage/MyPageDetail/MyPageDetail';
 import SignUp from './Pages/SignUp/SignUp';
-import SignIn from './Pages/SignIn/SignIn';
+import LogIn from './Pages/LogIn/LogIn';
+import LogOut from './Pages/LogOut/LogOut';
 
 export default function Routes() {
   return (
@@ -13,7 +14,8 @@ export default function Routes() {
       <Switch>
         <Route exact path={'/'} component={Service} />
         <Route exact path={'/sign-up'} component={SignUp} />
-        <Route exact path={'/login'} component={SignIn} />
+        <Route exact path={'/login'} component={LogIn} />
+        <Route exact path={'/logout'} component={LogOut} />
         <Route exact path={'/mypage/order'} component={MyPage} />
         <Route exact path={'/mypage/order/:id'} component={MyPageDetail} />
       </Switch>
