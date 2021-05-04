@@ -19,15 +19,15 @@ function Button({ value, name, onClick, className, buttonText }) {
 Button.propTypes = {
   name: PropTypes.string,
   className: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   buttonText: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
 const StyledButtonUnit = styled(Button)`
-  width: 200px;
+  width: 100%;
   border: 1px solid ${({ theme }) => theme.borderGray};
-  border-radius: 10px;
+  border-radius: 5px;
 `;
 
 export default StyledButtonUnit;

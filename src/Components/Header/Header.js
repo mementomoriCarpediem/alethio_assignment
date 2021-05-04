@@ -13,7 +13,6 @@ import Menus from './Menus';
 
 export default function Header() {
   const dispatch = useDispatch();
-  const userToken = useSelector((store) => store.loginReducer);
 
   const { width } = useWindowSize();
 
@@ -26,7 +25,7 @@ export default function Header() {
   return (
     <HeaderWrapper className={isMobile && 'mobile'}>
       <div>
-        <HeaderLogo
+        <Logo
           className={isMobile && 'mobile'}
           width={isMobile ? '150px' : '200px'}
         />
@@ -59,5 +58,3 @@ const HeaderWrapper = styled.nav`
     padding: 10px;
   }
 `;
-
-const HeaderLogo = styled(Logo)``;

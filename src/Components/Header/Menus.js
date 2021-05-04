@@ -2,19 +2,26 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
 
-import headerMenus from './headerMenusData';
+import { useSelector } from 'react-redux';
+
+// import headerMenus from './headerMenusData';
 import StyledButtonUnit from '../Button';
 
 function Menus({ history, isMobile, isMenuBarOpen }) {
+  const userToken = useSelector((store) => store.loginReducer);
+
   const moveToPage = (e) => {
     e.preventDefault();
-    if (e.target.name === 'service') {
-      history.push('/');
-    } else if (e.target.name === 'signup') {
-      history.push('/sign-up');
-    } else if (e.target.name === 'login') {
-      history.push('./login');
-    }
+
+    const moveTo = {
+      service: '/',
+      signup: '/sign-up',
+      login: '/login',
+      mypage: '/mypage/order',
+      logout: '/logout',
+    };
+
+    history.push(moveTo[e.target.name]);
   };
 
   return (
@@ -22,7 +29,8 @@ function Menus({ history, isMobile, isMenuBarOpen }) {
       className={isMobile && 'mobile'}
       isMenuBarOpen={isMenuBarOpen}
     >
-      {headerMenus.map((menu) => {
+      {/* signup 페이지와 마찬가지로, buttonText가 다이나믹하게 변화해야 하므로 map 사용 x, 리팩토링시 고려하여 사용가능성 고려할 것 */}
+      {/* {headerMenus.map((menu) => {
         return (
           <HeaderButton
             key={menu.id}
@@ -33,7 +41,25 @@ function Menus({ history, isMobile, isMenuBarOpen }) {
             onClick={moveToPage}
           />
         );
-      })}
+      })} */}
+      <HeaderButton
+        className={isMobile && 'mobile'}
+        name={'service'}
+        buttonText={'서비스'}
+        onClick={moveToPage}
+      />
+      <HeaderButton
+        className={isMobile && 'mobile'}
+        name={userToken ? 'mypage' : 'signup'}
+        buttonText={userToken ? '마이페이지' : '회원가입'}
+        onClick={moveToPage}
+      />
+      <HeaderButton
+        className={isMobile && 'mobile'}
+        name={userToken ? 'logout' : 'login'}
+        buttonText={userToken ? '로그아웃' : '로그인'}
+        onClick={moveToPage}
+      />
     </MenusWrapper>
   );
 }
