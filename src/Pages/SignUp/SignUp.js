@@ -86,7 +86,7 @@ export default function SignUp(props) {
 
   const onBlurEmailValidation = () => {
     if (email) {
-      const REGEXP_EMAIL = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+      const REGEXP_EMAIL = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
       email.match(REGEXP_EMAIL) !== null
         ? setIsEmailValid(true)
         : setIsEmailValid(false);

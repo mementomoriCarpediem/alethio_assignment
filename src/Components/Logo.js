@@ -1,12 +1,5 @@
 import React from 'react';
 
-export default function Logo({ width, height }) {
-  return (
-    <img
-      src="/images/logo.png"
-      alt="serviceLogo"
-      width={width}
-      height={height}
-    />
-  );
+export default function Logo({ width, height, url }) {
+  return <img src={url} alt="serviceLogo" width={width} height={height} />;
 }

@@ -28,6 +28,7 @@ export default function Header() {
         <Logo
           className={isMobile && 'mobile'}
           width={isMobile ? '150px' : '200px'}
+          url={'/images/logo.png'}
         />
         {isMobile && (
           <FaBars
@@ -43,10 +44,14 @@ export default function Header() {
 }
 
 const HeaderWrapper = styled.nav`
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: space-between;
   padding: 10px 100px;
   width: 100%;
+  background-color: white;
 
   div {
     display: flex;
