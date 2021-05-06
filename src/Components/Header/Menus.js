@@ -1,24 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
 
-// import headerMenus from './headerMenusData';
+import headerMenusData from './headerMenusData';
 import StyledButtonUnit from '../Button';
 
 function Menus({ history, isMobile, isMenuBarOpen }) {
   const userToken = useSelector((store) => store.loginReducer);
+  const [selectedMenuArray, setSelectedMenuArray] = useState([]);
+
+  useEffect(() => {
+    setSelectedMenuArray(() =>
+      userToken
+        ? [...headerMenusData.withUserToken]
+        : [...headerMenusData.withoutUserToken],
+    );
+  }, [userToken]);
 
   const moveToPage = (e) => {
     e.preventDefault();
 
     const moveTo = {
-      service: '/',
-      signup: '/sign-up',
-      login: '/login',
-      mypage: '/mypage/order',
-      logout: '/logout',
+      service: selectedMenuArray[0].pageTo,
+      signup: selectedMenuArray[1].pageTo,
+      login: selectedMenuArray[2].pageTo,
+      mypage: selectedMenuArray[1].pageTo,
+      logout: selectedMenuArray[2].pageTo,
     };
 
     history.push(moveTo[e.target.name]);
@@ -29,8 +38,7 @@ function Menus({ history, isMobile, isMenuBarOpen }) {
       className={isMobile && 'mobile'}
       isMenuBarOpen={isMenuBarOpen}
     >
-      {/* signup 페이지와 마찬가지로, buttonText가 다이나믹하게 변화해야 하므로 map 사용 x, 리팩토링시 고려하여 사용가능성 고려할 것 */}
-      {/* {headerMenus.map((menu) => {
+      {selectedMenuArray.map((menu) => {
         return (
           <HeaderButton
             key={menu.id}
@@ -41,25 +49,7 @@ function Menus({ history, isMobile, isMenuBarOpen }) {
             onClick={moveToPage}
           />
         );
-      })} */}
-      <HeaderButton
-        className={isMobile && 'mobile'}
-        name={'service'}
-        buttonText={'서비스'}
-        onClick={moveToPage}
-      />
-      <HeaderButton
-        className={isMobile && 'mobile'}
-        name={userToken ? 'mypage' : 'signup'}
-        buttonText={userToken ? '마이페이지' : '회원가입'}
-        onClick={moveToPage}
-      />
-      <HeaderButton
-        className={isMobile && 'mobile'}
-        name={userToken ? 'logout' : 'login'}
-        buttonText={userToken ? '로그아웃' : '로그인'}
-        onClick={moveToPage}
-      />
+      })}
     </MenusWrapper>
   );
 }
@@ -78,15 +68,10 @@ const MenusWrapper = styled.section`
 `;
 
 const HeaderButton = styled(StyledButtonUnit)`
+  margin: 0 10px;
   color: black;
   font-size: 15px;
   font-weight: 600;
-  margin: 0 10px;
-
-  &:focus {
-    background-color: ${({ theme }) => theme.buttonBlue};
-    color: white;
-  }
 
   &.mobile {
     width: 100%;

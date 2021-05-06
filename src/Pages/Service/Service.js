@@ -9,25 +9,21 @@ import StyledButtonUnit from '../../Components/Button';
 
 import { MypageWrapper } from '../MyPage/MyPage';
 
+import { handleOrder } from './ServiceLogic';
+
 export default function Service(props) {
   const userToken = useSelector((store) => store.loginReducer);
-
-  const handleOrder = () => {
-    if (userToken) {
-      alert('주문 성공!');
-    } else {
-      alert('로그인 하신 후 주문가능합니다.');
-      props.history.push('/login');
-    }
-  };
 
   return (
     <>
       <Header />
       <ServiceWrapper>
         <OrderContainer>
-          <ServiceLogo width={'250px'} url={'/images/serviceLogo.jpeg'} />
-          <OrderButton buttonText={'주문하기'} onClick={handleOrder} />
+          <ProductImage width={'250px'} url={'/images/productImage.jpeg'} />
+          <OrderButton
+            buttonText={'주문하기'}
+            onClick={() => handleOrder(userToken, props)}
+          />
         </OrderContainer>
       </ServiceWrapper>
     </>
@@ -40,12 +36,10 @@ const ServiceWrapper = styled(MypageWrapper)`
 `;
 
 const OrderContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  ${({ theme }) => theme.flexMixin('column')};
 `;
 
-const ServiceLogo = styled(Logo)``;
+const ProductImage = styled(Logo)``;
 
 const OrderButton = styled(StyledButtonUnit)`
   margin-top: 20px;

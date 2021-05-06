@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-export default function Pagenation({ totalPage, currentPage, setCurrentPage }) {
-  const [pageArray, setPageArray] = useState([]);
+import usePageMove from './PagenationLogic';
 
-  useEffect(() => {
-    makePageArray(totalPage);
-  }, [totalPage]);
-
-  const makePageArray = (totalPage) => {
-    const newArray = [];
-
-    for (var i = 1; i <= totalPage; i++) {
-      newArray.push(i);
-      i === totalPage && setPageArray([...newArray]);
-    }
-  };
+export default function Pagenation({
+  totalPage,
+  currentPage,
+  setCurrentPage,
+  isMobile,
+}) {
+  const [pageArray] = usePageMove(totalPage);
 
   return (
     <PagenationWrapper>
@@ -23,7 +17,11 @@ export default function Pagenation({ totalPage, currentPage, setCurrentPage }) {
         return (
           <span
             key={index}
-            className={page === currentPage + 1 ? 'currentPage' : ''}
+            className={
+              page === currentPage + 1
+                ? 'currentPage'
+                : '' + (isMobile && 'mobile')
+            }
             onClick={(e) =>
               setCurrentPage(Number(e.target.innerText.split(' ')[0]) - 1)
             }
@@ -45,6 +43,7 @@ const PagenationWrapper = styled.section`
     color: blue;
     font-size: 30px;
     font-weight: 500;
+    text-align: center;
 
     &.currentPage {
       color: red;
@@ -53,6 +52,10 @@ const PagenationWrapper = styled.section`
     &:hover {
       cursor: pointer;
       background-color: lightgray;
+    }
+
+    &.mobile {
+      font-size: 20px;
     }
   }
 `;

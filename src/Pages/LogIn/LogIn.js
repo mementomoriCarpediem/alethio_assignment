@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-import API_endpoint from '../../config';
+import { API_endpoint } from '../../config';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginUser } from '../../store/action';
+
+import useInputs from '../../hooks/useInputs';
+import useLoginHandleSubmit from './LoginLogic';
+
+import loginInputData from './LoginInputData';
 
 import {
   SignUpWrapper,
@@ -14,51 +19,33 @@ import {
 } from '../SignUp/SignUp';
 
 export default function LogIn(props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleInput = (e) => {
-    e.target.name === 'email' && setEmail(e.target.value);
-    e.target.name === 'password' && setPassword(e.target.value);
-  };
-
+  const [form, handleInput] = useInputs({});
   const dispatch = useDispatch();
-  // const token = useSelector((store) => store.loginReducer);
-  // console.log(token);
 
-  const handleSubmit = () => {
-    fetch(`${API_endpoint}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email: email, password: password }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(loginUser(data.token));
-        props.history.push('/');
-      })
-      .catch((err) => alert('비밀번호는 8자리 이상입니다.'));
-  };
+  const [handleSubmit] = useLoginHandleSubmit(
+    API_endpoint,
+    form.email,
+    form.password,
+    dispatch,
+    loginUser,
+    props,
+  );
 
   return (
     <LoginWrapper>
       <LoginTitle>로그인</LoginTitle>
-      <LoginInput
-        labelText={'이메일'}
-        type={'email'}
-        name={'email'}
-        placeholder={'alethio@gmail.com'}
-        onChange={handleInput}
-      />
-      <LoginInput
-        labelText={'비밀번호'}
-        type={'password'}
-        name={'password'}
-        placeholder={'비밀번호를 입력해주세요'}
-        onChange={handleInput}
-      />
+      {loginInputData.map((item) => {
+        return (
+          <LoginInput
+            key={item.id}
+            labelText={item.labelText}
+            type={item.type}
+            name={item.name}
+            placeholder={item.placeholder}
+            onChange={handleInput}
+          />
+        );
+      })}
 
       <LoginButton
         name={'signUpSubmit'}

@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { useMediaQuery } from 'react-responsive';
 
-import API_endpoint from '../../../config';
+import { API_endpoint, isMobile_mediaQuery } from '../../../config';
+
+import useGetDetailPageData from './MyPageDetailLogic';
 
 import ProductList from '../ProductList';
 
@@ -9,23 +12,14 @@ import { MypageWrapper } from '../MyPage';
 import { SignUpTitle } from '../../SignUp/SignUp';
 
 export default function MyPageDetail(props) {
-  const { id } = props.match.params;
-  const [productDetail, setProductDetail] = useState([]);
+  const isMobile = useMediaQuery({
+    query: `${isMobile_mediaQuery}`,
+  });
 
-  useEffect(() => {
-    getProductDetailData(id);
-  }, []);
-
-  const getProductDetailData = async (id) => {
-    await fetch(`${API_endpoint}/order/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setProductDetail([data]);
-      });
-  };
+  const [productDetail] = useGetDetailPageData(props, API_endpoint);
 
   return (
-    <MyPageDetailWrapper>
+    <MyPageDetailWrapper className={isMobile && 'mobile'}>
       <MyPageDetailTitle>주문상세내용</MyPageDetailTitle>
       <ProductList productData={productDetail} />
     </MyPageDetailWrapper>

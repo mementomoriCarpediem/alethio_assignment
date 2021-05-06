@@ -13,17 +13,9 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  a,
   button {
     cursor: pointer;
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-button {
     border: none;
   }
-`;
+  `;
 export default GlobalStyle;

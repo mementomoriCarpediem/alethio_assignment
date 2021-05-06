@@ -1,5 +1,5 @@
 import React from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Input = React.forwardRef((props, ref) => (
@@ -17,32 +17,6 @@ const Input = React.forwardRef((props, ref) => (
   </label>
 ));
 
-// function Input({
-//   labelText,
-//   className,
-//   type,
-//   name,
-//   placeholder,
-//   onChange,
-//   onBlur,
-//   customRef,
-// }) {
-//   return (
-//     <label className={className}>
-//       {labelText}
-//       <input
-//         type={type}
-//         className={className}
-//         name={name}
-//         placeholder={placeholder}
-//         onChange={onChange}
-//         onBlur={onBlur}
-//         ref={customRef}
-//       />
-//     </label>
-//   );
-// }
-
 Input.propTypes = {
   labelText: PropTypes.string,
   type: PropTypes.string.isRequired,
@@ -52,8 +26,10 @@ Input.propTypes = {
   onBlur: PropTypes.func,
 };
 
-// 미래의 다른 컴포넌트에서 input 사용되는 경우, 공통 스타일링을 추출하여 StyledInputUnit으로 변환가능
-// const StyledInputUnit = styled(Input)``;
-// export default StyledInputUnit;
+const StyledInputUnit = styled(Input)`
+  ${({ theme }) => theme.flexMixin('column', 'flex-start')};
+  width: 100%;
+  margin-top: 10px;
+`;
 
-export default Input;
+export default StyledInputUnit;

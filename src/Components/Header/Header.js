@@ -1,23 +1,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useMediaQuery } from 'react-responsive';
-import useWindowSize from '../../hooks/windowSize';
 
 import { FaBars } from 'react-icons/fa';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../store/action';
+import { isMobile_mediaQuery } from '../../config';
 
 import Logo from '../Logo';
 import Menus from './Menus';
 
 export default function Header() {
-  const dispatch = useDispatch();
-
-  const { width } = useWindowSize();
-
   const isMobile = useMediaQuery({
-    query: '(max-width:414px)',
+    query: `${isMobile_mediaQuery}`,
   });
 
   const [isMenuBarOpen, setIsMenuBarOpen] = useState(false);
@@ -29,6 +23,7 @@ export default function Header() {
           className={isMobile && 'mobile'}
           width={isMobile ? '150px' : '200px'}
           url={'/images/logo.png'}
+          alt={'companyLogo'}
         />
         {isMobile && (
           <FaBars
@@ -46,7 +41,6 @@ export default function Header() {
 const HeaderWrapper = styled.nav`
   position: fixed;
   top: 0;
-  left: 0;
   display: flex;
   justify-content: space-between;
   padding: 10px 100px;

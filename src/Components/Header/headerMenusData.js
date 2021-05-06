@@ -1,7 +1,20 @@
-const headerMenus = [
-  { id: 1, name: 'service', value: 'service', buttonText: '서비스' },
-  { id: 2, name: 'signup', value: 'singup', buttonText: '회원가입' },
-  { id: 3, name: 'login', value: 'login', buttonText: '로그인' },
-];
+const headerMenusData = {
+  withoutUserToken: [
+    { id: 1, name: 'service', buttonText: '서비스', pageTo: '/' },
+    { id: 2, name: 'signup', buttonText: '회원가입', pageTo: '/sign-up' },
+    { id: 3, name: 'login', buttonText: '로그인', pageTo: '/login' },
+  ],
 
-export default headerMenus;
+  withUserToken: [
+    { id: 1, name: 'service', buttonText: '서비스', pageTo: '/' },
+    {
+      id: 2,
+      name: 'mypage',
+      buttonText: '마이페이지',
+      pageTo: '/mypage/order',
+    },
+    { id: 3, name: 'logout', buttonText: '로그아웃', pageTo: '/logout' },
+  ],
+};
+
+export default headerMenusData;

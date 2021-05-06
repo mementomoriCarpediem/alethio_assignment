@@ -28,6 +28,11 @@ const StyledButtonUnit = styled(Button)`
   width: 100%;
   border: 1px solid ${({ theme }) => theme.borderGray};
   border-radius: 5px;
+
+  &:focus {
+    background-color: ${({ theme }) => theme.buttonBlue};
+    color: white;
+  }
 `;
 
 export default StyledButtonUnit;
