@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+import { useMediaQuery } from 'react-responsive';
 
-import { API_endpoint } from '../../config';
+import { API_endpoint, isMobile_mediaQuery } from '../../config';
 
 import signUpInputs from './SignUpInputData';
 
@@ -17,6 +18,9 @@ import StyledInputUnit from '../../Components/Input';
 export default function SignUp(props) {
   const dispatch = useDispatch();
   const cursorRef = useRef(null);
+  const isMobile = useMediaQuery({
+    query: `${isMobile_mediaQuery}`,
+  });
 
   const [form, handleInput] = useInputs({});
   const [
@@ -37,7 +41,7 @@ export default function SignUp(props) {
   );
 
   return (
-    <SignUpWrapper>
+    <SignUpWrapper className={isMobile && 'mobile'}>
       <SignUpTitle>회원가입</SignUpTitle>
       <div>
         {signUpInputs.map((input) => {
@@ -80,6 +84,10 @@ export const SignUpWrapper = styled.div`
   div {
     ${({ theme }) => theme.flexMixin('column')};
     width: 100%;
+  }
+
+  &.mobile {
+    width: 300px;
   }
 `;
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useMediaQuery } from 'react-responsive';
 
-import { API_endpoint } from '../../config';
+import { API_endpoint, isMobile_mediaQuery } from '../../config';
 
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../store/action';
@@ -21,6 +22,9 @@ import {
 export default function LogIn(props) {
   const [form, handleInput] = useInputs({});
   const dispatch = useDispatch();
+  const isMobile = useMediaQuery({
+    query: `${isMobile_mediaQuery}`,
+  });
 
   const [handleSubmit] = useLoginHandleSubmit(
     API_endpoint,
@@ -32,7 +36,7 @@ export default function LogIn(props) {
   );
 
   return (
-    <LoginWrapper>
+    <LoginWrapper className={isMobile && 'mobile'}>
       <LoginTitle>로그인</LoginTitle>
       {loginInputData.map((item) => {
         return (

@@ -14,6 +14,8 @@ import { handleOrder } from './ServiceLogic';
 export default function Service(props) {
   const userToken = useSelector((store) => store.loginReducer);
 
+  console.log(userToken);
+
   return (
     <>
       <Header />

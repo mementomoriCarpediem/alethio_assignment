@@ -33,7 +33,11 @@ export default function Header() {
           />
         )}
       </div>
-      <Menus isMobile={isMobile} isMenuBarOpen={isMenuBarOpen} />
+      <Menus
+        isMobile={isMobile}
+        isMenuBarOpen={isMenuBarOpen}
+        setIsMenuBarOpen={setIsMenuBarOpen}
+      />
     </HeaderWrapper>
   );
 }

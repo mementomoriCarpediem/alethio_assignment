@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import headerMenusData from './headerMenusData';
 import StyledButtonUnit from '../Button';
 
-function Menus({ history, isMobile, isMenuBarOpen }) {
+function Menus({ history, isMobile, isMenuBarOpen, setIsMenuBarOpen }) {
   const userToken = useSelector((store) => store.loginReducer);
   const [selectedMenuArray, setSelectedMenuArray] = useState([]);
 
@@ -30,6 +30,7 @@ function Menus({ history, isMobile, isMenuBarOpen }) {
       logout: selectedMenuArray[2].pageTo,
     };
 
+    setIsMenuBarOpen(!isMenuBarOpen);
     history.push(moveTo[e.target.name]);
   };
 
