@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export default function useGetOrderData(endpoint) {
   const [isLoading, setIsLoading] = useState(false);
@@ -7,12 +7,7 @@ export default function useGetOrderData(endpoint) {
   const [totalPage, setTotalPage] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
 
-  useEffect(() => {
-    setIsLoading(true);
-    getOrderData(currentPage);
-  }, [currentPage]);
-
-  const getOrderData = async (currentPage) => {
+  const getOrderData = useCallback(async () => {
     await fetch(`${endpoint}/order?page=${currentPage}`)
       .then((res) => res.json())
       .then((data) => {
@@ -20,7 +15,12 @@ export default function useGetOrderData(endpoint) {
         setProductList([...data.content]);
       });
     await setIsLoading(false);
-  };
+  }, [currentPage, endpoint]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getOrderData();
+  }, [getOrderData]);
 
   return [isLoading, productList, totalPage, currentPage, setCurrentPage];
 }

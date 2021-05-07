@@ -13,7 +13,7 @@ import Header from '../../Components/Header/Header';
 import ProductList from './ProductList';
 import Pagenation from './Pagenation';
 
-export default function Mypage(props) {
+export default function Mypage() {
   const isMobile = useMediaQuery({
     query: `${isMobile_mediaQuery}`,
   });

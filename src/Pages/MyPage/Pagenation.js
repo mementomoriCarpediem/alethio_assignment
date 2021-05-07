@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import usePageMove from './PagenationLogic';
 
@@ -18,9 +19,9 @@ export default function Pagenation({
           <span
             key={index}
             className={
-              page === currentPage + 1
-                ? 'currentPage'
-                : '' + (isMobile && 'mobile')
+              (page === currentPage + 1 ? 'currentPage' : '') +
+              ' ' +
+              (isMobile && 'mobile')
             }
             onClick={(e) =>
               setCurrentPage(Number(e.target.innerText.split(' ')[0]) - 1)
@@ -59,3 +60,9 @@ const PagenationWrapper = styled.section`
     }
   }
 `;
+Pagenation.propTypes = {
+  totalPage: PropTypes.number,
+  currentPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
+  isMobile: PropTypes.bool.isRequired,
+};

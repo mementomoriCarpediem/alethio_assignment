@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 function ProductUnit({ id, itemName, history }) {
   const goToDetailPage = (id) => {
@@ -29,3 +30,8 @@ const ProductUnitWraaper = styled.tr`
 `;
 
 export default withRouter(ProductUnit);
+
+ProductUnit.propTypes = {
+  id: PropTypes.number,
+  itemName: PropTypes.string,
+};

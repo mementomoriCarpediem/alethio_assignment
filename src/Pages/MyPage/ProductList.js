@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import ProductUnit from './ProductUnit';
 
@@ -39,6 +40,7 @@ const ProductListWrapper = styled.section`
     font-size: 30px;
     font-weight: 500;
     border: 5px solid ${({ theme }) => theme.borderGray};
+
     &:first-child {
       width: 100px;
     }
@@ -51,3 +53,7 @@ const ProductListWrapper = styled.section`
     text-align: center;
   }
 `;
+
+ProductList.propTypes = {
+  productData: PropTypes.array.isRequired,
+};

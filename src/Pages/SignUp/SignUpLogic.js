@@ -15,21 +15,6 @@ export default function useValidation(
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isPasswordSame, setIsPasswordSame] = useState(true);
 
-  useEffect(() => {
-    if (password) {
-      const REGEXP_PASSWORD_8to15CHARACTER = /^[0-9a-zA-Z]{8,15}$/i;
-      password.match(REGEXP_PASSWORD_8to15CHARACTER) !== null
-        ? setIsPasswordValid(true)
-        : setIsPasswordValid(false);
-
-      if (rePassword) {
-        password === rePassword
-          ? setIsPasswordSame(true)
-          : setIsPasswordSame(false);
-      }
-    }
-  }, [password, rePassword]);
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getUserToken = () => {
     fetch(`${endpoint}/sign-up`, {
@@ -49,6 +34,21 @@ export default function useValidation(
         props.history.push('/');
       });
   };
+
+  useEffect(() => {
+    if (password) {
+      const REGEXP_PASSWORD_8to15CHARACTER = /^[0-9a-zA-Z]{8,15}$/i;
+      password.match(REGEXP_PASSWORD_8to15CHARACTER) !== null
+        ? setIsPasswordValid(true)
+        : setIsPasswordValid(false);
+
+      if (rePassword) {
+        password === rePassword
+          ? setIsPasswordSame(true)
+          : setIsPasswordSame(false);
+      }
+    }
+  }, [password, rePassword]);
 
   const handleSubmit = useCallback(() => {
     if (!isEmailValid) {
