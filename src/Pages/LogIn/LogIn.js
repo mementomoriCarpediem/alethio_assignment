@@ -12,6 +12,8 @@ import useLoginHandleSubmit from './LoginLogic';
 
 import loginInputData from './LoginInputData';
 
+import Header from '../../Components/Header/Header';
+
 import {
   SignUpWrapper,
   SignUpTitle,
@@ -36,27 +38,30 @@ export default function LogIn(props) {
   );
 
   return (
-    <LoginWrapper className={isMobile && 'mobile'}>
-      <LoginTitle>로그인</LoginTitle>
-      {loginInputData.map((item) => {
-        return (
-          <LoginInput
-            key={item.id}
-            labelText={item.labelText}
-            type={item.type}
-            name={item.name}
-            placeholder={item.placeholder}
-            onChange={handleInput}
-          />
-        );
-      })}
+    <>
+      <Header />
+      <LoginWrapper className={isMobile && 'mobile'}>
+        <LoginTitle>로그인</LoginTitle>
+        {loginInputData.map((item) => {
+          return (
+            <LoginInput
+              key={item.id}
+              labelText={item.labelText}
+              type={item.type}
+              name={item.name}
+              placeholder={item.placeholder}
+              onChange={handleInput}
+            />
+          );
+        })}
 
-      <LoginButton
-        name={'signUpSubmit'}
-        buttonText={'로그인'}
-        onClick={handleSubmit}
-      />
-    </LoginWrapper>
+        <LoginButton
+          name={'signUpSubmit'}
+          buttonText={'로그인'}
+          onClick={handleSubmit}
+        />
+      </LoginWrapper>
+    </>
   );
 }
 

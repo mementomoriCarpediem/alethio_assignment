@@ -14,6 +14,7 @@ import useValidation from './SignUpLogic';
 
 import StyledButtonUnit from '../../Components/Button';
 import StyledInputUnit from '../../Components/Input';
+import Header from '../../Components/Header/Header';
 
 export default function SignUp(props) {
   const dispatch = useDispatch();
@@ -41,36 +42,39 @@ export default function SignUp(props) {
   );
 
   return (
-    <SignUpWrapper className={isMobile && 'mobile'}>
-      <SignUpTitle>회원가입</SignUpTitle>
-      <div>
-        {signUpInputs.map((input) => {
-          return (
-            <SignUpInput
-              key={input.id}
-              labelText={input.labelText}
-              className={
-                ((input.name === 'email' && !isEmailValid) ||
-                  (input.name === 'password' && !isPasswordValid)) &&
-                'invalid'
-              }
-              type={input.type}
-              name={input.name}
-              placeholder={input.placeholder}
-              onChange={handleInput}
-              onBlur={input.name === 'email' ? onBlurEmailValidation : null}
-              ref={input.name === 'email' ? cursorRef : null}
-            />
-          );
-        })}
+    <>
+      <Header />
+      <SignUpWrapper className={isMobile && 'mobile'}>
+        <SignUpTitle>회원가입</SignUpTitle>
+        <div>
+          {signUpInputs.map((input) => {
+            return (
+              <SignUpInput
+                key={input.id}
+                labelText={input.labelText}
+                className={
+                  ((input.name === 'email' && !isEmailValid) ||
+                    (input.name === 'password' && !isPasswordValid)) &&
+                  'invalid'
+                }
+                type={input.type}
+                name={input.name}
+                placeholder={input.placeholder}
+                onChange={handleInput}
+                onBlur={input.name === 'email' ? onBlurEmailValidation : null}
+                ref={input.name === 'email' ? cursorRef : null}
+              />
+            );
+          })}
 
-        <SignUpButton
-          name={'signUpSubmit'}
-          buttonText={'가입하기'}
-          onClick={handleSubmit}
-        />
-      </div>
-    </SignUpWrapper>
+          <SignUpButton
+            name={'signUpSubmit'}
+            buttonText={'가입하기'}
+            onClick={handleSubmit}
+          />
+        </div>
+      </SignUpWrapper>
+    </>
   );
 }
 

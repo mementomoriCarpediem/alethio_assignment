@@ -66,7 +66,8 @@ export default function useValidation(
 
   const onBlurEmailValidation = () => {
     if (email) {
-      const REGEXP_EMAIL = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+      const REGEXP_EMAIL = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
       email.match(REGEXP_EMAIL) !== null
         ? setIsEmailValid(true)
         : setIsEmailValid(false);

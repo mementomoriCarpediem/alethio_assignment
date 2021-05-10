@@ -34,7 +34,7 @@ export default function Service(props) {
 
 const ServiceWrapper = styled(MypageWrapper)`
   justify-content: flex-start;
-  margin-top: 70px;
+  margin-top: 100px;
 `;
 
 const OrderContainer = styled.div`
